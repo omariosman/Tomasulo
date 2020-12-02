@@ -3,11 +3,93 @@
 #include<fstream>
 #include<sstream>
 #include<vector>
+#include<map>
 using namespace std;
+
+class ResStatHandler{
+private:
+    int LoadNum;
+    int StoreNum;
+    int AddNum;
+    int DivNum;
+    int JalNum;
+    int BeqNum;
+public:
+    ResStatHandler(){
+        LoadNum = 2;
+        StoreNum = 2;
+        AddNum = 2;
+        DivNum = 1;
+        JalNum = 1;
+        BeqNum = 1;
+    }
+    void incrementLoad(){
+        LoadNum++;
+    }
+    void incrementStore(){
+        StoreNum++;
+    }
+    void incrementAdd(){
+        AddNum++;
+    }
+    void incrementDiv(){
+        DivNum++;
+    }
+    void incrementJal(){
+        JalNum++;
+    }
+    void incrementBeq(){
+        BeqNum++;
+    }
+
+
+    void decrementLoad(){
+        LoadNum--;
+    }
+    void decrementStore(){
+        StoreNum--;
+    }
+    void decrementAdd(){
+        AddNum--;
+    }
+    void decrementDiv(){
+        DivNum--;
+    }
+    void decrementJal(){
+        JalNum--;
+    }
+    void decrementBeq(){
+        BeqNum--;
+    }
+
+    bool is_load_available(){
+        return (LoadNum > 0);
+    }
+
+    bool is_store_available(){
+        return (StoreNum > 0);
+    }
+
+    bool is_add_available(){
+        return (AddNum > 0);
+    }
+
+    bool is_beq_available(){
+        return (BeqNum > 0);
+    }
+
+    bool is_div_available(){
+        return (DivNum > 0);
+    }
+
+    bool is_jal_available(){
+        return (JalNum > 0);
+    }
+};
 
 class ReservationStation{
 private:
-	string name;
+	int name;
 	bool busy;
 	string op;
 	string Vj;
@@ -16,7 +98,7 @@ private:
 	string Qk;
 	long addr;
 public:
-	string setName(string nam){
+	int setName(int nam){
 		name = nam;
 	}
 	bool setBusy(bool bus){
@@ -58,8 +140,10 @@ public:
 
 };
 
-class Instruction{
+
+class InstructionLoad{
     private:
+        int numberOfInstructions;
         int clk;
     public:
         int setClk(int c){
@@ -68,7 +152,67 @@ class Instruction{
         void getClk(){return clk;}
 }
 
-int issue(){
+class InstructionStore{
+    private:
+        int numberOfInstructions;
+        int clk;
+    public:
+        int setClk(int c){
+            clk = c;
+        }
+        void getClk(){return clk;}
+}
+
+class InstructionAdd{
+    private:
+        int numberOfInstructions;
+        int clk;
+        string name;
+        int rs1;
+        int rs2;
+        int rd; 
+    public:
+        int setClk(int c){
+            clk = c;
+        }
+        void getClk(){return clk;}
+}
+
+class InstructionDiv{
+    private:
+        int numberOfInstructions;
+        int clk;
+    public:
+        int setClk(int c){
+            clk = c;
+        }
+        void getClk(){return clk;}
+}
+
+class InstructionJal{
+    private:
+        int numberOfInstructions;
+        int clk;
+    public:
+        int setClk(int c){
+            clk = c;
+        }
+        void getClk(){return clk;}
+}
+
+class InstructionBeq{
+    private:
+        int numberOfInstructions;
+        int clk;
+    public:
+        int setClk(int c){
+            clk = c;
+        }
+        void getClk(){return clk;}
+}
+
+int issue(ReservationStation object){
+    if()
     //comdition for FP
     if(){
 
@@ -113,8 +257,21 @@ int writeBack(){
     //return clk
 }
 int main(int argC, char **argv) {
-/*
-	vector<string> inst_arr;
+    ResStatHandler object;
+    ReservationStation load1;
+    ReservationStation load2;
+    ReservationStation store1;
+    ReservationStation store2;
+    ReservationStation branch;
+    ReservationStation jal;
+    ReservationStation add1;
+    ReservationStation add2;
+    ReservationStation div;
+
+    map<string, int> inst_type;     //map for the instruction types to a number
+    int arrayRegs[16];
+
+	vector<string> inst_arr;        //vector of instructions read from the file
 	ifstream infile;
 	infile.open(argv[1], ios::in);
 	
@@ -131,6 +288,4 @@ int main(int argC, char **argv) {
        } 
  
  
- 2D vector
- {
- {lw, r1, 0(r0)},
+}
